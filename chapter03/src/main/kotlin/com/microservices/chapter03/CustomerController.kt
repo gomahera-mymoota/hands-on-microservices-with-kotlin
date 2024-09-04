@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestMethod
 class CustomerController {
     
     @RequestMapping(value = arrayOf("/customer"), method = arrayOf(RequestMethod.GET))
-    fun getCustomer() = "hello from a controller"
+    fun getCustomer() = Customer(1, "Kotlin")
 }
