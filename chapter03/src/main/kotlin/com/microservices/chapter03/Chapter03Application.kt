@@ -6,18 +6,7 @@ import org.springframework.context.annotation.Bean
 import java.util.concurrent.ConcurrentHashMap
 
 @SpringBootApplication
-class Chapter03Application {
-
-	companion object {
-		val initialCustomers = arrayOf(Customer(1, "Kotlin"),
-		Customer(2, "Spring"),
-		Customer(3, "Microservices"))
-	}
-
-	@Bean
-	fun customers() = ConcurrentHashMap<Int, Customer>(initialCustomers.associateBy(Customer::id))
-	
-}
+class Chapter03Application 
 
 fun main(args: Array<String>) {
 	runApplication<Chapter03Application>(*args)
