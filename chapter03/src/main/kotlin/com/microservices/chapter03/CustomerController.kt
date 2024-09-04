@@ -26,8 +26,12 @@ class CustomerController {
         customerService.searchCustomers(nameFilter)
 
     @GetMapping("/customer/{id}")
-    fun getCustomer(@PathVariable id: Int) = 
-        ResponseEntity(customerService.getCustomer(id), HttpStatus.OK)  // 이전 예제에서는 @GetMapping이 ResponseEntity를 대신 생성해주었다
+    fun getCustomer(@PathVariable id: Int): ResponseEntity<Customer?> {
+        val customer = customerService.getCustomer(id)
+        val status = if (customer == null) HttpStatus.NOT_FOUND else HttpStatus.OK
+
+        return ResponseEntity(customer, status)
+    }
 
     @PostMapping("/customer/")
     fun createCustomer(@RequestBody customer: Customer) {
