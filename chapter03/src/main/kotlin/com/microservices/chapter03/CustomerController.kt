@@ -34,14 +34,14 @@ class CustomerController {
     }
 
     @PostMapping("/customer/")
-    fun createCustomer(@RequestBody customer: Customer): ResponseEntity<Unit> {
+    fun createCustomer(@RequestBody customer: Customer): ResponseEntity<Unit?> {
         customerService.createCustomer(customer)
 
-        return ResponseEntity(Unit, HttpStatus.CREATED)
+        return ResponseEntity<Unit?>(null, HttpStatus.CREATED)
     }
 
     @DeleteMapping("/customer/{id}")
-    fun deleteCustomer(@PathVariable id: Int): ResponseEntity<Unit> {
+    fun deleteCustomer(@PathVariable id: Int): ResponseEntity<Unit?> {
         var status = HttpStatus.NOT_FOUND
 
         if (customerService.getCustomer(id) != null) {
@@ -49,12 +49,12 @@ class CustomerController {
             status = HttpStatus.OK
         }
 
-        return ResponseEntity(Unit, status)
+        return ResponseEntity<Unit?>(null, status)
     }
 
     @PutMapping("/customer/{id}")
     fun updateCustomer(@PathVariable id: Int, 
-                       @RequestBody customer: Customer): ResponseEntity<Unit> {
+                       @RequestBody customer: Customer): ResponseEntity<Unit?> {
         var status = HttpStatus.NOT_FOUND
 
         if (customerService.getCustomer(id) != null) {
@@ -62,7 +62,7 @@ class CustomerController {
             status = HttpStatus.ACCEPTED
         }
 
-        return ResponseEntity(Unit, status)
+        return ResponseEntity<Unit?>(null, status)
     }
   
 }
