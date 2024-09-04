@@ -15,5 +15,8 @@ class CustomerController {
 
     @RequestMapping(value = arrayOf("/customer/{id}"), method = arrayOf(RequestMethod.GET))
     fun getCustomer(@PathVariable id: Int) = customers[id]
+
+    @RequestMapping(value = arrayOf("/customers"), method = arrayOf(RequestMethod.GET))
+    fun getCustomers() = customers.map(Map.Entry<Int, Customer>::value).toList()
     
 }
