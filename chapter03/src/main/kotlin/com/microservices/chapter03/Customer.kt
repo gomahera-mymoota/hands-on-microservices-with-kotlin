@@ -1,3 +1,8 @@
 package com.microservices.chapter03
 
-data class Customer(var id: Int = 0, val name: String = "")
+data class Customer(var id: Int = 0, val name: String = "",
+    var telephone: Telephone) {
+
+        data class Telephone(var countryCode: String = "", var telephoneNumber: String = "")
+    
+    }
