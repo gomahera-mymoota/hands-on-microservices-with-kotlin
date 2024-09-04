@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpStatus
 import java.util.concurrent.ConcurrentHashMap
 
 @RestController
@@ -24,7 +26,8 @@ class CustomerController {
         customerService.searchCustomers(nameFilter)
 
     @GetMapping("/customer/{id}")
-    fun getCustomer(@PathVariable id: Int) = customerService.getCustomer(id)
+    fun getCustomer(@PathVariable id: Int) = 
+        ResponseEntity(customerService.getCustomer(id), HttpStatus.OK)  // 이전 예제에서는 @GetMapping이 ResponseEntity를 대신 생성해주었다
 
     @PostMapping("/customer/")
     fun createCustomer(@RequestBody customer: Customer) {
