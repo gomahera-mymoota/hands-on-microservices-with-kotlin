@@ -13,6 +13,12 @@ class ErrorHandler {
     @ExceptionHandler(JsonParseException::class)
     fun JsonParseExceptionHandler(serveletRequest: HttpServletRequest,
                                   exception: Exception): ResponseEntity<ErrorResponse> {
-            return ResponseEntity(ErrorResponse("JSON Error", exception.message ?: "invalid json"), HttpStatus.BAD_REQUEST)
+        return ResponseEntity(ErrorResponse("JSON Error", exception.message ?: "invalid json"), HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(CustomerNotFoundException::class)
+    fun CustomerNotFoundExceptionHandler(serveletRequest: HttpServletRequest,
+                                         exception: Exception): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(ErrorResponse("Customer Not Found", exception.message!!), HttpStatus.NOT_FOUND)
     }
 }
