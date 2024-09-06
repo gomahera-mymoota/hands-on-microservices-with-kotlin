@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.http.ResponseEntity
 import org.springframework.http.HttpStatus
 import org.springframework.beans.factory.annotation.Autowired
+import reactor.core.publisher.Mono
 
 @RestController
 class CustomerController {
@@ -15,7 +16,7 @@ class CustomerController {
     private lateinit var customerService: CustomerService
 
     @GetMapping("/customer/{id}")
-    fun getCustomer(@PathVariable id: Int): ResponseEntity<Customer?> {
+    fun getCustomer(@PathVariable id: Int): ResponseEntity<Mono<Customer>> {
         val customer = customerService.getCustomer(id)
 
         return ResponseEntity(customer, HttpStatus.OK)
