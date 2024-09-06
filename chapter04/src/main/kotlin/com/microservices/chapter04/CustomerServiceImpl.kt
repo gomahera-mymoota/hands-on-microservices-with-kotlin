@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentHashMap
 import reactor.kotlin.core.publisher.toMono
 import reactor.kotlin.core.publisher.toFlux
+import reactor.core.publisher.Mono
 
 @Component
 class CustomerServiceImpl : CustomerService {
@@ -21,5 +22,11 @@ class CustomerServiceImpl : CustomerService {
     override fun searchCustomers(nameFilter: String) = customers.filter {
         it.value.name.contains(nameFilter, true)
     }.map(Map.Entry<Int, Customer>::value).toFlux()
+
+    override fun createCustomer(customerMono: Mono<Customer>): Mono<*> {
+        return customerMono.subscribe {
+            customers[it.id] = it
+        }.toMono()
+    }
 
 }
