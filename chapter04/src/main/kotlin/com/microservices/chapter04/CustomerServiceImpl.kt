@@ -26,6 +26,7 @@ class CustomerServiceImpl : CustomerService {
     override fun createCustomer(customerMono: Mono<Customer>): Mono<*> =
         customerMono.map {
             customers[it.id] = it
+            it
         }
 
 }
