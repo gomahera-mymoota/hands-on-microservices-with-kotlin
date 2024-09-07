@@ -1,5 +1,6 @@
 package com.microservices.chapter04
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.RouterFunction
@@ -8,18 +9,20 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.router
 import reactor.kotlin.core.publisher.toMono
 
-@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 @Component
 class CustomerRouter {
+
+    @Autowired
+    private lateinit var customerHandler: CustomerHandler
 
     @Bean
     fun customerRoutes(): RouterFunction<*> = router {
         "/functional".nest {
             "/customer".nest {
-                GET("/") {
-                    it: ServerRequest ->
-                        ok().body(Customer(1, "functional web").toMono(), Customer::class.java)
-                }
+//                GET("/") {
+//                    it: ServerRequest -> customerHandler.get(it)
+//                }
+                GET("/", customerHandler::get)      // 메소드 참조
             }
         }
     }
