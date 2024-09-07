@@ -10,10 +10,7 @@ import org.springframework.web.reactive.function.server.router
 import reactor.kotlin.core.publisher.toMono
 
 @Component
-class CustomerRouter {
-
-    @Autowired
-    private lateinit var customerHandler: CustomerHandler
+class CustomerRouter(private val customerHandler: CustomerHandler) {
 
     @Bean
     fun customerRoutes(): RouterFunction<*> = router {
