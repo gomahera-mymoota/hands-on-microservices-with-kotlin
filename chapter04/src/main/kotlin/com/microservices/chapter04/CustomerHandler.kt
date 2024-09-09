@@ -27,7 +27,7 @@ class CustomerHandler(val customerService: CustomerService) {
                 created(URI.create("/functional/customer/${it.id}"))
                 .build()
             }.onErrorResume(Exception::class.java) {
-                badRequest().body(fromValue("error"))
+                badRequest().body(fromValue(ErrorResponse("error create customer", it.message ?: "error")))
             }
 
 }
