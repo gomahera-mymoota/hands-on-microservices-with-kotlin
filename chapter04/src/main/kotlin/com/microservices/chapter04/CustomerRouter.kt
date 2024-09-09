@@ -16,7 +16,11 @@ class CustomerRouter(private val customerHandler: CustomerHandler) {
     fun customerRoutes() = router {
         "/functional".nest {
             "/customer".nest {
-                GET("/{id}", customerHandler::get)      // 메소드 참조
+                GET("/{id}", customerHandler::get)
+                POST("/", customerHandler::get)
+            }
+            "/customers".nest {
+                GET("/", customerHandler::get)
             }
         }
     }
