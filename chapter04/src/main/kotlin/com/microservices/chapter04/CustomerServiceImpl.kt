@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap
 import reactor.kotlin.core.publisher.toMono
 import reactor.kotlin.core.publisher.toFlux
 import reactor.core.publisher.Mono
+import kotlin.jvm.internal.iterator
 
 @Component
 class CustomerServiceImpl : CustomerService {
@@ -24,10 +25,13 @@ class CustomerServiceImpl : CustomerService {
     }.map(Map.Entry<Int, Customer>::value).toFlux()
 
     override fun createCustomer(customerMono: Mono<Customer>) =
-        customerMono.map {
-            customers[it.id] = it
-            // Mono.empty<Any>()
-            it
+        customerMono.flatMap {
+            if (customers[it.id] == null) {
+                customers[it.id] = it
+                it.toMono()
+            } else {
+                Mono.error(CustomerExistsException("Customer ${it.id} already exists"))
+            }
         }
 
 }
