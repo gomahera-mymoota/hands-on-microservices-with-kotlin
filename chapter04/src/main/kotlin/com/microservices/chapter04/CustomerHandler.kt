@@ -15,4 +15,7 @@ class CustomerHandler(val customerService: CustomerService) {
             .flatMap { ok().body(fromValue(it)) }
             .switchIfEmpty(status(HttpStatus.NOT_FOUND).build())    // status() 함수를 이용한 404 NOT FOUND 응답
 
+    fun search(serverRequest: ServerRequest) = 
+        ok().body(customerService.searchCustomers(""), Customer::class.java)
+
 }
