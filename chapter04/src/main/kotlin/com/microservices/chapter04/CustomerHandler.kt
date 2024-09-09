@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.server.bodyToMono
 import org.springframework.web.reactive.function.BodyInserters.fromValue
 import java.net.URI
 
+
 @Component
 class CustomerHandler(val customerService: CustomerService) {
 
@@ -25,6 +26,8 @@ class CustomerHandler(val customerService: CustomerService) {
             .flatMap {
                 created(URI.create("/functional/customer/${it.id}"))
                 .build()
+            }.onErrorResume(Exception::class.java) {
+                badRequest().body(fromValue("error"))
             }
 
 }
