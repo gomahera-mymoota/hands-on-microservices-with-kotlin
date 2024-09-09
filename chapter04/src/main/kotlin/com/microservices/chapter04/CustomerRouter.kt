@@ -13,7 +13,7 @@ import reactor.kotlin.core.publisher.toMono
 class CustomerRouter(private val customerHandler: CustomerHandler) {
 
     @Bean
-    fun customerRoutes(): RouterFunction<*> = router {
+    fun customerRoutes() = router {
         "/functional".nest {
             "/customer".nest {
                 GET("/{id}", customerHandler::get)      // 메소드 참조
