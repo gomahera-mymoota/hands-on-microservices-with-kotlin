@@ -1,6 +1,7 @@
 package com.microservices.chapter05
 
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
+import org.springframework.data.mongodb.core.findById
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toMono
@@ -26,5 +27,7 @@ class CustomerRepository(private val template: ReactiveMongoTemplate) {
         // }
 
     fun create(customer: Mono<Customer>) = template.save(customer)
+
+    fun findById(id: Int) = template.findById<Customer>(id)
 
 }
