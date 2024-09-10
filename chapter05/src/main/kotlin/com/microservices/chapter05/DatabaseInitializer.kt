@@ -1,5 +1,6 @@
 package com.microservices.chapter05
 
+import com.microservices.chapter05.Customer.Telephone
 import org.springframework.stereotype.Component
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.ReactiveMongoOperations
@@ -15,6 +16,12 @@ class DatabaseInitializer {
     @Autowired
     lateinit var mongoOperations: ReactiveMongoOperations
 
+    companion object {
+        val initialCustomers = listOf(Customer(1, "Kotlin"),
+        Customer(2, "Spring"),
+        Customer(3, "Microservice", Telephone("+82", "01062821234")))
+    }
+
     @PostConstruct
     fun initData() {
         mongoOperations.collectionExists("Customers").subscribe {
@@ -24,8 +31,8 @@ class DatabaseInitializer {
                 }
             else println("  :::  Customers collection already exists")
 
-            customerRepository.save(Customer(1, "spring")).subscribe {
-                println("  :::  Default customer created")
+            customerRepository.saveAll(initialCustomers).subscribe {
+                println("  :::  Default customer ${it.id} created")
             }
         }
     }
