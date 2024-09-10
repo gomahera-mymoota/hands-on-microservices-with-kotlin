@@ -23,18 +23,9 @@ class DatabaseInitializer {
     }
 
     @PostConstruct
-    fun initData() {
-        mongoOperations.collectionExists("Customers").subscribe {
-            if (it != true) 
-                mongoOperations.createCollection("Customers").subscribe {
-                    println("  :::  Customers collection created")
-                }
-            else println("  :::  Customers collection already exists")
-
-            customerRepository.saveAll(initialCustomers).subscribe {
-                println("  :::  Default customer ${it.id} created")
-            }
+    fun initData() =
+        customerRepository.saveAll(initialCustomers).subscribe {
+            println("Default customer ${it.id} created")
         }
-    }
 
 }
