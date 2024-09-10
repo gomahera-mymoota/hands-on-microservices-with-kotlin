@@ -10,16 +10,23 @@ import jakarta.annotation.PostConstruct
 class DatabaseInitializer {
 
     @Autowired
+    lateinit var customerRepository: CustomerRepository
+
+    @Autowired
     lateinit var mongoOperations: ReactiveMongoOperations
 
     @PostConstruct
     fun initData() {
         mongoOperations.collectionExists("Customers").subscribe {
-            if (it != true) {
+            if (it != true) 
                 mongoOperations.createCollection("Customers").subscribe {
                     println("  :::  Customers collection created")
                 }
-            } else println("  :::  Customers collection already exists")                
+            else println("  :::  Customers collection already exists")
+
+            customerRepository.save(Customer(1, "spring")).subscribe {
+                println("  :::  Default customer created")
+            }
         }
     }
 
