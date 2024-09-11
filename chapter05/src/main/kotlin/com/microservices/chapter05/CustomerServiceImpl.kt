@@ -13,4 +13,6 @@ class CustomerServiceImpl : CustomerService {
 
     override fun getCustomer(id: Int) = customerRepository.findById(id)
 
+    override fun createCustomer(customer: Mono<Customer>) = customerRepository.create(customer)
+
 }
