@@ -28,5 +28,12 @@ class CustomerHandler(val customerService: CustomerService) {
                 else
                     notFound().build() 
             }
+
+    fun search(serverRequest: ServerRequest) =
+        ok().body(
+            customerService.searchCustomer(serverRequest.queryParam("nameFilter")
+                .orElse("")),
+            Customer::class.java
+        )
     
 }
