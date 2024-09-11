@@ -1,4 +1,4 @@
 microservice:
-    example:
-        greetings: "hello from config server"
-#        greetings: "hello"
+  example:
+    greetings: "hello from config server"
+#    greetings: "hello"
