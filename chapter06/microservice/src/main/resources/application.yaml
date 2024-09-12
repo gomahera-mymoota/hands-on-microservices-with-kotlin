@@ -1,5 +1,7 @@
 spring:
-    application:
-        name: "microservice"
-    config:
-        import: "optional:configserver:"
+  application:
+    name: "greetings"
+  config:
+    import: "optional:configserver:"
+encrypt:
+  key: "this_is_a_secret"

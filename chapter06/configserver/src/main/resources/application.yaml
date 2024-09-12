@@ -1,12 +1,15 @@
 server:
-    port: 8888
+  port: 8888
 spring:
-    application:
-        name: "configserver"
-    profiles:
-        active: "native"
-    cloud:
-        config:
-            server:
-                native:
-                    search-locations: "classpath:config/"
+  application:
+    name: "configserver"
+  profiles:
+    active: "native"
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: "classpath:config/"
+        encrypt:
+          enabled: false
+encrypt.key: "this_is_a_secret"
